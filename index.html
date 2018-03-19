@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Test Ownpage Guillaume Sauvanon</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+
+  <!--  body component -->
+
+  <div class="parallax-container">
+    <canvas id="drawing_canvas"></canvas>
+    <div id="parallax1" class="parallax"></div>
+  </div>
+
+  <div class="section white">
+    <div class="row container">
+      <br><br>
+      <img src="https://www.ownpage.fr/assets/images/logo/header.png" alt="">
+      <p class="grey-text text-darken-3 lighten-3 thin">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+        dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+  </div>
+
+  <div id="parallax2" class="parallax-container part2">
+    <div class="ipad">
+      <div class="ipadbutton"></div>
+      <div class="screen">
+        <iframe src="https://www.ownpage.fr/" height="480" width="645"></iframe>
+        <div id="unlock">
+          <transition name="fade">
+            <div v-if="show" id="nav0" class="locked visible">
+              <div class="switch">
+                <label>
+                  <input type="checkbox" v-on:click="show = !show">
+                 <span class="lever"></span>
+                 <img class="ownlogo" src="https://www.ownpage.fr/assets/images/logo/footer.png" alt="">
+                  </label>
+                <label class="alertlock" for=""> Switch to unlock.</label>
+              </div>
+            </div>
+          </transition>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--  modal component -->
+
+  <script type="text/x-template" id="modal">
+    <transition name="modal">
+      <div class="modal-mask ">
+        <div class="modal-wrapper">
+          <a @click="$emit('close')" class="btn-floating waves-effect waves-light black close"><i class="material-icons">close</i></a>
+          <div class="modal-container mod">
+            <div class="modal-header">
+              <slot name="header">
+                <img class="logmod" src="https://www.ownpage.fr/assets/images/logo/footer.png" alt="">
+                <p class="grey-text thin newsletter">Always be ahead.</p>
+              </slot>
+            </div>
+
+            <div id="submit" class="modal-body">
+              <slot name="body">
+                <form>
+                  <div class="row">
+                    <div class="input-field mail col s12">
+                      <input id="email" type="email" class="validate" required>
+                      <label for="email" data-error="Please, enter a valide adress email." data-success="Perfect!">Enter your email to get in touch</label>
+                    </div>
+                  </div>
+                  <button  onclick="validate()" type="submit" class="btn waves-effect send" ><a class="thin sendbut">
+                    <i class="material-icons right">send</i>
+                  </button>
+                </form>
+              </slot>
+            </div>
+
+            <div class="modal-body">
+              <slot name="body">
+                <p class="grey-text thin subscribing">Thanks for subscribing to our newsletter.</p>
+              </slot>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </transition>
+  </script>
+
+  <div id="dvContent2">
+    <div id="popin">
+      <modal v-if="showModal" @close="showModal = false"></modal>
+    </div>
+  </div>
+
+  <!--  Footer  -->
+
+  <footer class="page-footer">
+    <div class="container footblock">
+      <div class="row">
+        <div class="col l6 s12">
+          <br>
+          <img src="https://www.ownpage.fr/assets/images/logo/footer.png" alt="">
+          <p class="grey-text text-lighten-4 thin">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3 thin" href="#!">Lorem 1</a></li>
+            <li><a class="grey-text text-lighten-3 thin" href="#!">Lorem 2</a></li>
+            <li><a class="grey-text text-lighten-3 thin" href="#!">Lorem 3</a></li>
+            <li><a class="grey-text text-lighten-3 thin" href="#!">Lorem 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        © 2018 Copyright Lorem
+        <a class="grey-text text-lighten-4 right thin" href="#!">More Lorems</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- script -->
+
+  <script type="text/javascript">
+    $(function() {
+      $('#dvContent2').hide();
+      $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+        if (scroll >= 318) {
+          $('#dvContent2').show();
+        } else {
+          $('#dvContent2').hide();
+        }
+      });
+    })
+  </script>
+
+  <script type="text/javascript">
+  function validate() {
+  var x = document.getElementById("submit");
+  if (x.style.display === "none") {
+      x.style.display = "block";
+  } else {
+      x.style.display = "none";
+  }
+}
+  </script>
+
+  <script type="text/javascript">
+    Vue.component('modal', {
+      template: '#modal'
+    })
+    new Vue({
+      el: '#popin',
+      data: {
+        showModal: true,
+      }
+    })
+    new Vue({
+      el: '#unlock',
+      data: {
+        show: true
+      }
+    })
+  </script>
+
+  <script src="background.js"></script>
+
+</body>
+
+</html>
